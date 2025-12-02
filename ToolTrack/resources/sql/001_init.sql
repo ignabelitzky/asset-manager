@@ -4,7 +4,7 @@
 CREATE TABLE IF NOT EXISTS schema_migrations (
     id INTEGER PRIMARY KEY,
     filename TEXT UNIQUE NOT NULL,
-    applied_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP()
+    applied_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 -- =============================================
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS tools_checkout (
     original_id INTEGER,
     user_id INTEGER,
     tool_id INTEGER,
-    checkout_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP(),
+    checkout_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     returned_at TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
     FOREIGN KEY (tool_id) REFERENCES tools(id) ON DELETE CASCADE
