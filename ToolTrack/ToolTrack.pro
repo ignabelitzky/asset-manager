@@ -12,17 +12,27 @@ SOURCES += \
     main.cpp \
     src/core/AppController.cpp \
     src/core/DBMigrationService.cpp \
+    src/core/Dashboard.cpp \
     src/core/DatabaseManager.cpp \
-    src/core/MainWindow.cpp
+    src/dao/UserDAO.cpp \
+    src/dialogs/NewUserDialog.cpp \
+    src/models/User.cpp \
+    src/pages/UsersPage.cpp
 
 HEADERS += \
     src/core/AppController.h \
     src/core/DBMigrationService.h \
+    src/core/Dashboard.h \
     src/core/DatabaseManager.h \
-    src/core/MainWindow.h
+    src/dao/UserDAO.h \
+    src/dialogs/NewUserDialog.h \
+    src/models/User.h \
+    src/pages/UsersPage.h
 
 FORMS += \
-    src/ui/MainWindow.ui
+    src/dialogs/NewUserDialog.ui \
+    src/pages/UsersPage.ui \
+    src/ui/Dashboard.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

@@ -8,6 +8,7 @@
 #include <QDebug>
 
 AppController::AppController()
+    : m_userDAO(new UserDAO())
 {
     const QString appDataDir =
         QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
@@ -42,6 +43,12 @@ void AppController::shutdown()
 {
     qDebug() << "[APPCONTROLLER] Shutting down...";
     DatabaseManager::instance().close();
+}
+
+void AppController::showDashboard()
+{
+    m_dashboard = new Dashboard(*m_userDAO);
+    m_dashboard->show();
 }
 
 QString AppController::databasePath() const
