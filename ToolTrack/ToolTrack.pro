@@ -17,6 +17,8 @@ SOURCES += \
     src/dao/UserDAO.cpp \
     src/dialogs/NewUserDialog.cpp \
     src/models/User.cpp \
+    src/models/UserProxyModel.cpp \
+    src/models/UserTableModel.cpp \
     src/pages/UsersPage.cpp
 
 HEADERS += \
@@ -27,6 +29,8 @@ HEADERS += \
     src/dao/UserDAO.h \
     src/dialogs/NewUserDialog.h \
     src/models/User.h \
+    src/models/UserProxyModel.h \
+    src/models/UserTableModel.h \
     src/pages/UsersPage.h
 
 FORMS += \

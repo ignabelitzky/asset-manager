@@ -14,6 +14,7 @@ class NewUserDialog : public QDialog
 public:
     explicit NewUserDialog(UserDAO& userDAO, QWidget *parent = nullptr);
     ~NewUserDialog();
+    void loadUser(int userId);
 
 private slots:
     void onSave();
@@ -21,4 +22,5 @@ private slots:
 private:
     Ui::NewUserDialog *ui;
     UserDAO& m_userDAO;
+    int m_userId = -1;
 };

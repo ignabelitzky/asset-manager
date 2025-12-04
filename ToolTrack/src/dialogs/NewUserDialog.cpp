@@ -9,8 +9,10 @@ NewUserDialog::NewUserDialog(UserDAO& userDAO, QWidget *parent)
     , m_userDAO(userDAO)
 {
     ui->setupUi(this);
-
-    connect(ui->buttonBox->button(QDialogButtonBox::Ok), &QPushButton::clicked, this, &NewUserDialog::onSave);
+    connect(ui->saveButton, &QPushButton::clicked,
+            this, &NewUserDialog::onSave);
+    connect(ui->cancelButton, &QPushButton::clicked,
+            this, &NewUserDialog::reject);
 }
 
 NewUserDialog::~NewUserDialog()
@@ -18,9 +20,25 @@ NewUserDialog::~NewUserDialog()
     delete ui;
 }
 
+void NewUserDialog::loadUser(int userId)
+{
+    m_userId = userId;
+
+    std::optional<User> user = m_userDAO.getUserById(m_userId);
+    if (!user.has_value())
+        return;
+
+    ui->firstNameLineEdit->setText(user->firstName());
+    ui->lastNameLineEdit->setText(user->lastName());
+    ui->barcodeLineEdit->setText(user->barcode());
+
+    setWindowTitle("Editar Usuario");
+}
+
 void NewUserDialog::onSave()
 {
     User user;
+    user.setId(m_userId);
     user.setFirstName(ui->firstNameLineEdit->text());
     user.setLastName(ui->lastNameLineEdit->text());
     user.setBarcode(ui->barcodeLineEdit->text());
@@ -42,11 +60,15 @@ void NewUserDialog::onSave()
         return;
     }
 
-    const bool success = m_userDAO.addUser(user);
+    bool success = false;
+    if (m_userId < 0)
+        success = m_userDAO.addUser(user);
+    else
+        success = m_userDAO.updateUser(user);
 
     if (!success)
     {
-        QMessageBox::critical(this, "Error", "No se pudo guardar al usuario en la base de datos.");
+        QMessageBox::critical(this, "Error", "No se puede guardar.");
         return;
     }
 
