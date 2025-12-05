@@ -9,6 +9,13 @@
 
 AppController::AppController()
     : m_usersDAO(new UsersDAO())
+    , m_itemsDAO(new ItemsDAO())
+    , m_itemTypesDAO(new ItemTypesDAO())
+    , m_itemStatesDAO(new ItemStatesDAO())
+    , m_ownerTypesDAO(new OwnerTypesDAO())
+    , m_personsDAO(new PersonsDAO())
+    , m_institutionsDAO(new InstitutionsDAO())
+    , m_locationsDAO(new LocationsDAO())
 {
     const QString appDataDir =
         QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
@@ -18,6 +25,14 @@ AppController::AppController()
 
 AppController::~AppController()
 {
+    delete m_usersDAO;
+    delete m_itemsDAO;
+    delete m_itemTypesDAO;
+    delete m_itemStatesDAO;
+    delete m_ownerTypesDAO;
+    delete m_personsDAO;
+    delete m_institutionsDAO;
+    delete m_locationsDAO;
     shutdown();
 }
 
@@ -47,7 +62,14 @@ void AppController::shutdown()
 
 void AppController::showDashboard()
 {
-    m_dashboard = new Dashboard(*m_usersDAO);
+    m_dashboard = new Dashboard(*m_usersDAO,
+                                *m_itemsDAO,
+                                *m_itemTypesDAO,
+                                *m_itemStatesDAO,
+                                *m_ownerTypesDAO,
+                                *m_personsDAO,
+                                *m_institutionsDAO,
+                                *m_locationsDAO);
     m_dashboard->show();
 }
 

@@ -28,15 +28,15 @@ QVector<Item> ItemsDAO::getAll() const
     return result;
 }
 
-std::optional<Item> ItemsDAO::getById(int id) const
+Item ItemsDAO::getById(int id) const
 {
+    Item result{};
+
     if (id <= 0)
     {
         qDebug() << "[ITEMSDAO] getById called with invalid id:" << id;
-        return std::nullopt;
+        return result;
     }
-
-    std::optional<Item> result = std::nullopt;
 
     QSqlQuery query(DatabaseManager::instance().db());
     query.prepare(R"(

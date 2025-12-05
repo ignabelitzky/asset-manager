@@ -2,6 +2,13 @@
 
 #include <QMainWindow>
 #include "src/dao/UsersDAO.h"
+#include "src/dao/ItemsDAO.h"
+#include "src/dao/ItemTypesDAO.h"
+#include "src/dao/ItemStatesDAO.h"
+#include "src/dao/OwnerTypesDAO.h"
+#include "src/dao/PersonsDAO.h"
+#include "src/dao/InstitutionsDAO.h"
+#include "src/dao/LocationsDAO.h"
 
 struct PageInfo
 {
@@ -20,7 +27,15 @@ class Dashboard : public QMainWindow
     Q_OBJECT
 
 public:
-    Dashboard(UsersDAO& usersDAO, QWidget *parent = nullptr);
+    Dashboard(UsersDAO& usersDAO,
+              ItemsDAO& itemsDAO,
+              ItemTypesDAO& itemTypesDAO,
+              ItemStatesDAO& itemStatesDAO,
+              OwnerTypesDAO& ownerTypesDAO,
+              PersonsDAO& personsDAO,
+              InstitutionsDAO& institutionsDAO,
+              LocationsDAO& locationsDAO,
+              QWidget *parent = nullptr);
     ~Dashboard();
 
 private:
@@ -31,5 +46,12 @@ private:
 private:
     Ui::Dashboard *ui;
     UsersDAO& m_usersDAO;
+    ItemsDAO& m_itemsDAO;
+    ItemTypesDAO& m_itemTypesDAO;
+    ItemStatesDAO& m_itemStatesDAO;
+    OwnerTypesDAO& m_ownerTypesDAO;
+    PersonsDAO& m_personsDAO;
+    InstitutionsDAO& m_institutionsDAO;
+    LocationsDAO& m_locationsDAO;
     QMap<QString, PageInfo> m_pages;
 };

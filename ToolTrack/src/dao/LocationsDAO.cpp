@@ -16,7 +16,7 @@ QVector<Location> LocationsDAO::getAll() const
 
     if (!query.exec())
     {
-        qDebug() << "[LocationsDAO] Error in getAll:" << query.lastError().text();
+        qDebug() << "[LOCATIONSDAO] Error in getAll:" << query.lastError().text();
         return result;
     }
     while(query.next())
@@ -48,6 +48,31 @@ Location LocationsDAO::getById(int id) const
     {
         QSqlRecord record = query.record();
         result = {record.value("id").toInt(), record.value("name").toString()};
+    }
+    return result;
+}
+
+QString LocationsDAO::getNameById(int id) const
+{
+    QString result{};
+
+    QSqlQuery query(DatabaseManager::instance().db());
+    query.prepare(R"(
+        SELECT name
+        FROM locations
+        WHERE id = :id
+    )");
+    query.bindValue(":id", id);
+
+    if (!query.exec())
+    {
+        qDebug() << "[LOCATIONSDAO] Error in getNameById:" << query.lastError().text();
+        return result;
+    }
+    if (query.next())
+    {
+        QSqlRecord record = query.record();
+        result = record.value("name").toString();
     }
     return result;
 }

@@ -13,7 +13,7 @@ public:
     ~ItemsDAO() = default;
 
     QVector<Item> getAll() const;
-    std::optional<Item> getById(int id) const;
+    Item getById(int id) const;
     std::optional<Item> getByBarcode(const QString& barcode) const;
 
     bool insert(const Item& item) const;

@@ -17,6 +17,7 @@ public:
 
     QVector<ItemType> getAll() const;
     ItemType getById(int id) const;
+    QString getNameById(int id) const;
 
     bool insert(const QString& name);
     bool update(int id, const QString& name);

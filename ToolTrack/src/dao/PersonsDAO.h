@@ -18,6 +18,7 @@ public:
 
     QVector<Person> getAll() const;
     Person getById(int id) const;
+    QString getFullNameById(int id) const;
 
     bool insert(const QString& firstName, const QString& lastName);
     bool update(int id, const QString& firstName, const QString& lastName);

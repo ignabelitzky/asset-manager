@@ -15,11 +15,13 @@ class UsersPage : public QWidget
     Q_OBJECT
 
 public:
-    explicit UsersPage(UsersDAO& userDAO, QWidget *parent = nullptr);
+    explicit UsersPage(UsersDAO& usersDAO,
+                       QWidget *parent = nullptr);
     ~UsersPage();
 
 private slots:
-    void onSelectionChanged(const QItemSelection& selected, const QItemSelection& deselected);
+    void onSelectionChanged(const QItemSelection& selected,
+                            const QItemSelection& deselected);
     void onNewUserClicked();
     void onEditUserClicked();
     void onDeleteUserClicked();

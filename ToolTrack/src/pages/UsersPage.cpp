@@ -3,11 +3,12 @@
 #include "ui_UsersPage.h"
 #include "src/dialogs/NewUserDialog.h"
 
-UsersPage::UsersPage(UsersDAO& usersDAO, QWidget *parent)
+UsersPage::UsersPage(UsersDAO& usersDAO,
+                     QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::UsersPage)
     , m_usersDAO(usersDAO)
-    , m_model(new UsersTableModel(m_usersDAO))
+    , m_model(new UsersTableModel(m_usersDAO, this))
     , m_proxy(new UsersProxyModel(this))
 {
     ui->setupUi(this);
@@ -121,7 +122,7 @@ void UsersPage::reconnectSelectionModel()
 int UsersPage::getSelectedUserId() const
 {
     QModelIndex proxyIndex = ui->tableView->currentIndex();
-    if(!proxyIndex.isValid())
+    if (!proxyIndex.isValid())
         return -1;
 
     QModelIndex sourceIndex = m_proxy->mapToSource(proxyIndex);

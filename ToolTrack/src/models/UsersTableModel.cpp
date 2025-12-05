@@ -1,7 +1,9 @@
 #include "UsersTableModel.h"
 
-UsersTableModel::UsersTableModel(UsersDAO& usersDAO)
-    : m_usersDAO(usersDAO)
+UsersTableModel::UsersTableModel(UsersDAO& usersDAO,
+                                 QObject* parent)
+    : QAbstractTableModel(parent)
+    , m_usersDAO(usersDAO)
 {
     refresh();
 }
@@ -23,7 +25,7 @@ QVariant UsersTableModel::data(const QModelIndex& index, int role) const
     if (role == Qt::TextAlignmentRole)
         return Qt::AlignCenter;
     if (!index.isValid() || index.row() >= m_users.size())
-        return {};
+        return QVariant();
 
     const User& user = m_users[index.row()];
 
@@ -41,16 +43,16 @@ QVariant UsersTableModel::data(const QModelIndex& index, int role) const
         case Barcode:
             return user.barcode();
         default:
-            return {};
+            return QVariant();
         }
     }
-    return {};
+    return QVariant();
 }
 
 QVariant UsersTableModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
     if (role != Qt::DisplayRole)
-        return {};
+        return QVariant();
 
     if (orientation == Qt::Horizontal)
     {
@@ -63,7 +65,7 @@ QVariant UsersTableModel::headerData(int section, Qt::Orientation orientation, i
         case Barcode:
             return "Código Identificatorio";
         default:
-            return {};
+            return QVariant();
         }
     }
     return section + 1;

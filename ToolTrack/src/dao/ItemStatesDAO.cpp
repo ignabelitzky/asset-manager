@@ -52,6 +52,31 @@ ItemState ItemStatesDAO::getById(int id) const
     return result;
 }
 
+QString ItemStatesDAO::getNameById(int id) const
+{
+    QString result{};
+
+    QSqlQuery query(DatabaseManager::instance().db());
+    query.prepare(R"(
+        SELECT name
+        FROM item_states
+        WHERE id = :id
+    )");
+    query.bindValue(":id", id);
+
+    if (!query.exec())
+    {
+        qDebug() << "[ITEMSTATESDAO] Error in getNameById:" << query.lastError().text();
+        return result;
+    }
+    if (query.next())
+    {
+        QSqlRecord record = query.record();
+        result = record.value("name").toString();
+    }
+    return result;
+}
+
 bool ItemStatesDAO::insert(const QString& name)
 {
     QSqlQuery query(DatabaseManager::instance().db());

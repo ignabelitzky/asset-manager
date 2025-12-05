@@ -3,20 +3,20 @@
 #include <QVector>
 #include <QString>
 
-struct ItemState
+struct Institution
 {
     int id;
     QString name;
 };
 
-class ItemStatesDAO
+class InstitutionsDAO
 {
 public:
-    ItemStatesDAO() = default;
-    ~ItemStatesDAO() = default;
+    InstitutionsDAO() = default;
+    ~InstitutionsDAO() = default;
 
-    QVector<ItemState> getAll() const;
-    ItemState getById(int id) const;
+    QVector<Institution> getAll() const;
+    Institution getById(int id) const;
     QString getNameById(int id) const;
 
     bool insert(const QString& name);

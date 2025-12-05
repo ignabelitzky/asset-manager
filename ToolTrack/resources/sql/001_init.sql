@@ -51,6 +51,14 @@ CREATE TABLE IF NOT EXISTS persons (
 );
 
 -- =============================================
+-- INSTITUTIONS TABLE
+-- =============================================
+CREATE TABLE IF NOT EXISTS institutions (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name VARCHAR(120) NOT NULL UNIQUE
+);
+
+-- =============================================
 -- LOCATIONS TABLE
 -- =============================================
 CREATE TABLE IF NOT EXISTS locations (
@@ -217,4 +225,13 @@ INSERT INTO item_states (name) VALUES
 INSERT INTO owner_types (name) VALUES
     ('Persona'),
     ('Ubicación');
+
+INSERT INTO locations (name) VALUES
+    ('Sin definir');
+
+INSERT INTO persons (first_name, last_name) VALUES
+    ('Sin', 'definir');
+
+INSERT INTO institutions (name) VALUES
+    ('Sin definir');
 

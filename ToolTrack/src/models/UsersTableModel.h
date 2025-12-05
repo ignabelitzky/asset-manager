@@ -9,7 +9,8 @@ class UsersTableModel : public QAbstractTableModel
 {
     Q_OBJECT
 public:
-    explicit UsersTableModel(UsersDAO& usersDAO);
+    explicit UsersTableModel(UsersDAO& usersDAO,
+                             QObject* parent = nullptr);
     ~UsersTableModel() = default;
 
     enum {

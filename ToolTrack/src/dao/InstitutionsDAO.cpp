@@ -1,25 +1,25 @@
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QSqlRecord>
-#include "ItemTypesDAO.h"
+#include "InstitutionsDAO.h"
 #include "src/core/DatabaseManager.h"
 
-QVector<ItemType> ItemTypesDAO::getAll() const
+QVector<Institution> InstitutionsDAO::getAll() const
 {
-    QVector<ItemType> result = {};
+    QVector<Institution> result = {};
 
     QSqlQuery query(DatabaseManager::instance().db());
     query.prepare(R"(
         SELECT id, name
-        FROM item_types
+        FROM institutions
     )");
 
     if (!query.exec())
     {
-        qDebug() << "[ITEMTYPESDAO] Error in getAll:" << query.lastError().text();
+        qDebug() << "[INSTITUTIONSDAO] Error in getAll:" << query.lastError().text();
         return result;
     }
-    while (query.next())
+    while(query.next())
     {
         QSqlRecord record = query.record();
         result.append({record.value("id").toInt(), record.value("name").toString()});
@@ -27,21 +27,21 @@ QVector<ItemType> ItemTypesDAO::getAll() const
     return result;
 }
 
-ItemType ItemTypesDAO::getById(int id) const
+Institution InstitutionsDAO::getById(int id) const
 {
-    ItemType result = {};
+    Institution result = {};
 
     QSqlQuery query(DatabaseManager::instance().db());
     query.prepare(R"(
         SELECT id, name
-        FROM item_types
+        FROM institutions
         WHERE id = :id
     )");
     query.bindValue(":id", id);
 
     if (!query.exec())
     {
-        qDebug() << "[ITEMTYPESDAO] Error in getById:" << query.lastError().text();
+        qDebug() << "[INSTITUTIONSDAO] Error in getById:" << query.lastError().text();
         return result;
     }
     if (query.next())
@@ -52,21 +52,21 @@ ItemType ItemTypesDAO::getById(int id) const
     return result;
 }
 
-QString ItemTypesDAO::getNameById(int id) const
+QString InstitutionsDAO::getNameById(int id) const
 {
     QString result{};
 
     QSqlQuery query(DatabaseManager::instance().db());
     query.prepare(R"(
         SELECT name
-        FROM item_types
+        FROM institutions
         WHERE id = :id
     )");
     query.bindValue(":id", id);
 
     if (!query.exec())
     {
-        qDebug() << "[ITEMTYPESDAO] Error in getNameById:" << query.lastError().text();
+        qDebug() << "[INSTITUTIONSDAO] Error in getNameById:" << query.lastError().text();
         return result;
     }
     if (query.next())
@@ -77,33 +77,33 @@ QString ItemTypesDAO::getNameById(int id) const
     return result;
 }
 
-bool ItemTypesDAO::insert(const QString& name)
+bool InstitutionsDAO::insert(const QString& name)
 {
     QSqlQuery query(DatabaseManager::instance().db());
     query.prepare(R"(
-        INSERT INTO item_types (name) VALUES (:name)
+        INSERT INTO institutions (name) VALUES (:name)
     )");
     query.bindValue(":name", name);
 
     if (!query.exec())
     {
-        qDebug() << "[ITEMTYPESDAO] Error in insert:" << query.lastError().text();
+        qDebug() << "[INSTITUTIONSDAO] Error in insert:" << query.lastError().text();
         return false;
     }
     return true;
 }
 
-bool ItemTypesDAO::update(int id, const QString& name)
+bool InstitutionsDAO::update(int id, const QString& name)
 {
     if (id <= 0)
     {
-        qDebug() << "[ITEMTYPESDAO] update called with invalid id:" << id;
+        qDebug() << "[INSTITUTIONSDAO] update called with invalid id:" << id;
         return false;
     }
 
     QSqlQuery query(DatabaseManager::instance().db());
     query.prepare(R"(
-        UPDATE item_types
+        UPDATE institutions
         SET name = :name
         WHERE id = :id
     )");
@@ -112,31 +112,31 @@ bool ItemTypesDAO::update(int id, const QString& name)
 
     if (!query.exec())
     {
-        qDebug() << "[ITEMTYPESDAO] Error in update:" << query.lastError().text();
+        qDebug() << "[INSTITUTIONSDAO] Error in update:" << query.lastError().text();
         return false;
     }
 
     return query.numRowsAffected() > 0;
 }
 
-bool ItemTypesDAO::remove(int id)
+bool InstitutionsDAO::remove(int id)
 {
     if (id <= 0)
     {
-        qDebug() << "[ITEMTYPESDAO] remove called with invalid id:" << id;
+        qDebug() << "[INSTITUTIONSDAO] remove called with invalid id:" << id;
         return false;
     }
 
     QSqlQuery query(DatabaseManager::instance().db());
     query.prepare(R"(
-        DELETE FROM item_types
+        DELETE FROM institutions
         WHERE id = :id
     )");
     query.bindValue(":id", id);
 
     if (!query.exec())
     {
-        qDebug() << "[ITEMTYPESDAO] Error in remove:" << query.lastError().text();
+        qDebug() << "[INSTITUTIONSDAO] Error in remove:" << query.lastError().text();
         return false;
     }
 

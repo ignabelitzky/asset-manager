@@ -56,6 +56,33 @@ Person PersonsDAO::getById(int id) const
     return result;
 }
 
+QString PersonsDAO::getFullNameById(int id) const
+{
+    QString result{};
+
+    QSqlQuery query(DatabaseManager::instance().db());
+    query.prepare(R"(
+        SELECT first_name, last_name
+        FROM persons
+        WHERE id = :id
+    )");
+    query.bindValue(":id", id);
+
+    if (!query.exec())
+    {
+        qDebug() << "[PERSONSDAO] Error in getFullNameById:" << query.lastError().text();
+        return result;
+    }
+    if (query.next())
+    {
+        QSqlRecord record = query.record();
+        QString firstName = record.value("first_name").toString();
+        QString lastName = record.value("last_name").toString();
+        result = QString("%1 %2").arg(firstName, lastName);
+    }
+    return result.trimmed();
+}
+
 bool PersonsDAO::insert(const QString& firstName, const QString& lastName)
 {
     QSqlQuery query(DatabaseManager::instance().db());
