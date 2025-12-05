@@ -75,6 +75,23 @@ std::optional<User> UsersDAO::getUserByBarcode(const QString& userBarcode) const
     return user;
 }
 
+bool UsersDAO::existsBarcode(const QString& barcode, int excludeId) const
+{
+    QSqlQuery query(DatabaseManager::instance().db());
+    query.prepare(R"(
+        SELECT COUNT(*) FROM users
+        WHERE barcode = :barcode AND id != :excludeId
+    )");
+    query.bindValue(":barcode", barcode);
+    query.bindValue(":excludeId", excludeId);
+
+    if (!query.exec())
+        return false;
+
+    query.next();
+    return query.value(0).toInt() > 0;
+}
+
 bool UsersDAO::insert(const User& user) const
 {
     QSqlQuery query(DatabaseManager::instance().db());

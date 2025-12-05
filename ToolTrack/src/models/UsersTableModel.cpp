@@ -63,7 +63,7 @@ QVariant UsersTableModel::headerData(int section, Qt::Orientation orientation, i
         case Last_Name:
             return "Apellido";
         case Barcode:
-            return "Código Identificatorio";
+            return "Código";
         default:
             return QVariant();
         }

@@ -9,6 +9,7 @@
 #include "src/dao/PersonsDAO.h"
 #include "src/dao/InstitutionsDAO.h"
 #include "src/dao/LocationsDAO.h"
+#include "src/dao/CheckoutDAO.h"
 
 struct PageInfo
 {
@@ -35,6 +36,7 @@ public:
               PersonsDAO& personsDAO,
               InstitutionsDAO& institutionsDAO,
               LocationsDAO& locationsDAO,
+              CheckoutDAO& checkoutDAO,
               QWidget *parent = nullptr);
     ~Dashboard();
 
@@ -53,5 +55,6 @@ private:
     PersonsDAO& m_personsDAO;
     InstitutionsDAO& m_institutionsDAO;
     LocationsDAO& m_locationsDAO;
+    CheckoutDAO& m_checkoutDAO;
     QMap<QString, PageInfo> m_pages;
 };

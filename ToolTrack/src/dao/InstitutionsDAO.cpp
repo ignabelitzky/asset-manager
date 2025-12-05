@@ -12,6 +12,7 @@ QVector<Institution> InstitutionsDAO::getAll() const
     query.prepare(R"(
         SELECT id, name
         FROM institutions
+        ORDER BY name
     )");
 
     if (!query.exec())

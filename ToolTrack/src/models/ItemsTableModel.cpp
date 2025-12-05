@@ -75,6 +75,9 @@ QVariant ItemsTableModel::data(const QModelIndex& index, int role) const
     case Stock:
         return item.stock();
 
+    case AvailableStock:
+        return item.availableStock();
+
     case Owner:
         return resolveOwnerName(item.ownerTypeId(), item.ownerId());
 
@@ -100,14 +103,24 @@ QVariant ItemsTableModel::headerData(int section, Qt::Orientation orientation, i
     {
         switch (section)
         {
-        case Name:     return "Nombre";
-        case Barcode:  return "Código Identificatorio";
-        case Type:     return "Tipo";
-        case State:    return "Estado";
-        case Stock:    return "Stock";
-        case Owner:    return "Responsable";
-        case Location: return "Ubicación";
-        default:       return QVariant();
+        case Name:
+            return "Nombre";
+        case Barcode:
+            return "Código";
+        case Type:
+            return "Tipo";
+        case State:
+            return "Estado";
+        case Stock:
+            return "Stock Total";
+        case AvailableStock:
+            return "Stock Disponible";
+        case Owner:
+            return "Responsable";
+        case Location:
+            return "Ubicación";
+        default:
+            return QVariant();
         }
     }
 

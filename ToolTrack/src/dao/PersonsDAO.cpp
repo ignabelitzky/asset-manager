@@ -12,6 +12,7 @@ QVector<Person> PersonsDAO::getAll() const
     query.prepare(R"(
         SELECT id, first_name, last_name
         FROM persons
+        ORDER BY id
     )");
 
     if (!query.exec())

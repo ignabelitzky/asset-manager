@@ -66,7 +66,18 @@ void ItemsPage::onNewItemClicked()
     if (dlg.exec() == QDialog::Accepted)
     {
         Item newItem = dlg.getItem();
-        m_itemsDAO.insert(newItem);
+
+        if (!newItem.isValid())
+        {
+            QMessageBox::warning(this, "Error", "El item ingresado no es válido.");
+            return;
+        }
+
+        if (!m_itemsDAO.insert(newItem))
+        {
+            QMessageBox::critical(this, "Error", "No se pudo guardar el nuevo item en la base de datos.");
+            return;
+        }
 
         m_model->refresh();
         reconnectSelectionModel();
@@ -75,16 +86,28 @@ void ItemsPage::onNewItemClicked()
     }
 }
 
+
 void ItemsPage::onEditItemClicked()
 {
     int itemId = getSelectedItemId();
     if (itemId < 0)
+    {
+        QMessageBox::warning(this, "Error", "No se ha seleccionado ningún item.");
         return;
+    }
 
-    Item item = m_itemsDAO.getById(itemId);
-    if (!item.isValid())
+    std::optional<Item> itemOpt = m_itemsDAO.getById(itemId);
+    if (!itemOpt.has_value())
     {
         QMessageBox::warning(this, "Error", "No se pudo cargar el item seleccionado.");
+        return;
+    }
+
+    const Item& item = *itemOpt;
+
+    if (!item.isValid())
+    {
+        QMessageBox::warning(this, "Error", "El item seleccionado contiene datos inválidos.");
         return;
     }
 
@@ -101,12 +124,18 @@ void ItemsPage::onEditItemClicked()
 
     dlg.setItemToEdit(item);
 
+    // Show the dialog and wait for the user action
     if (dlg.exec() == QDialog::Accepted)
     {
-        Item updated = dlg.getItem();
-        updated.setId(itemId);
+        Item updatedItem = dlg.getItem();
+        updatedItem.setId(itemId); // Asegurarnos de mantener el mismo ID
 
-        m_itemsDAO.update(updated);
+        // Save changes in the database
+        if (!m_itemsDAO.update(updatedItem))
+        {
+            QMessageBox::critical(this, "Error", "No se pudo actualizar el item en la base de datos.");
+            return;
+        }
 
         m_model->refresh();
         reconnectSelectionModel();
@@ -115,20 +144,38 @@ void ItemsPage::onEditItemClicked()
     }
 }
 
+
 void ItemsPage::onDeleteItemClicked()
 {
     int itemId = getSelectedItemId();
     if (itemId < 0)
-        return;
-
-    if (QMessageBox::question(this, "Eliminar item", "¿Está seguro que desea eliminar este item?") == QMessageBox::Yes)
     {
-        m_itemsDAO.remove(itemId);
-        m_model->refresh();
-        reconnectSelectionModel();
-        onSelectionChanged({}, {});
+        QMessageBox::warning(this, "Error", "No se ha seleccionado ningún item para eliminar.");
+        return;
     }
+
+    if (QMessageBox::question(
+            this,
+            "Eliminar item",
+            "¿Está seguro que desea eliminar este item?",
+            QMessageBox::Yes | QMessageBox::No
+            ) != QMessageBox::Yes)
+    {
+        return;
+    }
+
+    if (!m_itemsDAO.remove(itemId))
+    {
+        QMessageBox::critical(this, "Error", "No se pudo eliminar el item de la base de datos.");
+        return;
+    }
+
+    m_model->refresh();
+    reconnectSelectionModel();
+    ui->tableView->clearSelection();
+    onSelectionChanged({}, {});
 }
+
 
 void ItemsPage::onRefreshClicked()
 {

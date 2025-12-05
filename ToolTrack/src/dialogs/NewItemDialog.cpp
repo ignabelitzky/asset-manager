@@ -87,7 +87,17 @@ void NewItemDialog::loadCombos()
     ui->locationComboBox->clear();
     for (auto l : m_locationsDAO.getAll())
         ui->locationComboBox->addItem(l.name, l.id);
+
+    if (ui->ownerTypeComboBox->count() > 0)
+    {
+        ui->ownerTypeComboBox->setCurrentIndex(0);
+
+        int ownerTypeId = ui->ownerTypeComboBox->currentData().toInt();
+
+        loadOwnersForType(ownerTypeId);
+    }
 }
+
 
 void NewItemDialog::loadOwnersForType(int ownerTypeId)
 {
@@ -107,9 +117,12 @@ void NewItemDialog::loadOwnersForType(int ownerTypeId)
 
 void NewItemDialog::onOwnerTypeChanged(int index)
 {
+    if (index < 0)
+        return;
     int ownerTypeId = ui->ownerTypeComboBox->itemData(index).toInt();
     loadOwnersForType(ownerTypeId);
 }
+
 
 bool NewItemDialog::validateFields()
 {
@@ -124,7 +137,7 @@ bool NewItemDialog::validateFields()
 
     if (barcode.isEmpty())
     {
-        QMessageBox::warning(this, "Error", "El código de barras no puede estar vacío.");
+        QMessageBox::warning(this, "Error", "El código no puede estar vacío.");
         return false;
     }
 
@@ -138,7 +151,7 @@ bool NewItemDialog::validateFields()
             if (!m_isEditMode || existing->id() != m_originalItem.id())
             {
                 QMessageBox::warning(this, "Error",
-                                     "El código de barras ya está en uso por otro item.");
+                                     "El código ya está en uso por otro item.");
                 return false;
             }
         }

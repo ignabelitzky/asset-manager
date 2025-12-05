@@ -99,7 +99,6 @@ CREATE TABLE IF NOT EXISTS items (
 -- =============================================
 CREATE TABLE IF NOT EXISTS items_checkout (
     id INTEGER PRIMARY KEY,
-    original_id INTEGER,
     user_id INTEGER,
     item_id INTEGER,
     checkout_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -205,14 +204,8 @@ CREATE INDEX IF NOT EXISTS idx_checkout_archive_date ON items_checkout_archive(a
 -- INSERTS
 --------------------------------------------------------------------
 INSERT INTO item_types (name) VALUES
-    ('Aparato'),
-    ('Desarrollo'),
-    ('Equipo'),
     ('Herramienta'),
-    ('Instrumento'),
-    ('Insumo'),
-    ('Máquina'),
-    ('Mueble');
+    ('Insumo');
 
 INSERT INTO item_states (name) VALUES
     ('Excelente'),
@@ -224,14 +217,17 @@ INSERT INTO item_states (name) VALUES
 
 INSERT INTO owner_types (name) VALUES
     ('Persona'),
-    ('Ubicación');
+    ('Institución');
 
-INSERT INTO locations (name) VALUES
-    ('Sin definir');
+INSERT INTO locations (id, name)
+VALUES (1, 'Sin ubicación')
+ON CONFLICT(id) DO NOTHING;
 
-INSERT INTO persons (first_name, last_name) VALUES
-    ('Sin', 'definir');
+INSERT INTO persons (id, first_name, last_name)
+VALUES (1, 'Sin', 'responsable')
+ON CONFLICT(id) DO NOTHING;
 
-INSERT INTO institutions (name) VALUES
-    ('Sin definir');
+INSERT INTO institutions (id, name)
+VALUES(1, 'Sin institución')
+ON CONFLICT(id) DO NOTHING;
 

@@ -12,6 +12,7 @@ QVector<Location> LocationsDAO::getAll() const
     query.prepare(R"(
         SELECT id, name
         FROM locations
+        ORDER BY id;
     )");
 
     if (!query.exec())

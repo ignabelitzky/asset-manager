@@ -10,6 +10,7 @@
 #include "src/dao/PersonsDAO.h"
 #include "src/dao/InstitutionsDAO.h"
 #include "src/dao/LocationsDAO.h"
+#include "src/dao/CheckoutDAO.h"
 
 class AppController
 {
@@ -33,6 +34,7 @@ private:
     PersonsDAO* m_personsDAO;
     InstitutionsDAO* m_institutionsDAO;
     LocationsDAO* m_locationsDAO;
+    CheckoutDAO* m_checkoutDAO;
 
     Dashboard* m_dashboard{nullptr};
 

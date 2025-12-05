@@ -2,6 +2,7 @@
 #include "ui_Dashboard.h"
 #include "src/pages/UsersPage.h"
 #include "src/pages/ItemsPage.h"
+#include "src/pages/CheckoutPage.h"
 
 Dashboard::Dashboard(UsersDAO& usersDAO,
                      ItemsDAO& itemsDAO,
@@ -11,6 +12,7 @@ Dashboard::Dashboard(UsersDAO& usersDAO,
                      PersonsDAO& personsDAO,
                      InstitutionsDAO& institutionsDAO,
                      LocationsDAO& locationsDAO,
+                     CheckoutDAO& checkoutDAO,
                      QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::Dashboard)
@@ -22,6 +24,7 @@ Dashboard::Dashboard(UsersDAO& usersDAO,
     , m_personsDAO(personsDAO)
     , m_institutionsDAO(institutionsDAO)
     , m_locationsDAO(locationsDAO)
+    , m_checkoutDAO(checkoutDAO)
 {
     ui->setupUi(this);
 
@@ -35,9 +38,14 @@ Dashboard::Dashboard(UsersDAO& usersDAO,
                                        m_institutionsDAO,
                                        m_locationsDAO,
                                        this);
+    QWidget* checkoutPage = new CheckoutPage(m_itemsDAO,
+                                             m_checkoutDAO,
+                                             m_usersDAO,
+                                             this);
 
     registerPage("users", usersPage, "Usuarios");
     registerPage("items", itemsPage, "Items");
+    registerPage("checkout", checkoutPage, "Retiro");
     switchToPage("users");
 
     setupConnections();
@@ -83,4 +91,5 @@ void Dashboard::setupConnections()
 
     connectPageButton(ui->usersButton, "users");
     connectPageButton(ui->itemsButton, "items");
+    connectPageButton(ui->checkoutButton, "checkout");
 }

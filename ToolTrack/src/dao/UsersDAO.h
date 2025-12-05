@@ -14,6 +14,7 @@ public:
     QVector<User> getAll() const;
     std::optional<User> getUserById(int userId) const;
     std::optional<User> getUserByBarcode(const QString& userBarcode) const;
+    bool existsBarcode(const QString& barcode, int excludeId) const;
 
     bool insert(const User& user) const;
     bool update(const User& user) const;

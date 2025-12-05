@@ -35,6 +35,7 @@ public:
         Type,
         State,
         Stock,
+        AvailableStock,
         Owner,
         Location,
         COLUMN_COUNT

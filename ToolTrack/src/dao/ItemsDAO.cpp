@@ -28,14 +28,14 @@ QVector<Item> ItemsDAO::getAll() const
     return result;
 }
 
-Item ItemsDAO::getById(int id) const
+std::optional<Item> ItemsDAO::getById(int id) const
 {
-    Item result{};
+    std::optional<Item> result;
 
     if (id <= 0)
     {
         qDebug() << "[ITEMSDAO] getById called with invalid id:" << id;
-        return result;
+        return std::nullopt;
     }
 
     QSqlQuery query(DatabaseManager::instance().db());
@@ -50,7 +50,7 @@ Item ItemsDAO::getById(int id) const
     if (!query.exec())
     {
         qDebug() << "[ITEMSDAO] Error in getById:" << query.lastError().text();
-        return result;
+        return std::nullopt;
     }
     if (query.next())
     {
@@ -228,6 +228,23 @@ Item ItemsDAO::gatherItem(const QSqlRecord& record) const
     item.setLocationId(record.value("location_id").toInt());
     item.setNotes(record.value("notes").toString());
 
-    return item;
+    // Calculate availableStock
+    QSqlQuery query(DatabaseManager::instance().db());
+    query.prepare(R"(
+        SELECT COUNT(*) FROM items_checkout
+        WHERE item_id = :item_id AND returned_at IS NULL
+    )");
+    query.bindValue(":item_id", item.id());
 
+    if (query.exec() && query.next())
+    {
+        int checkedOut = query.value(0).toInt();
+        item.setAvailableStock(item.stock() - checkedOut);
+    }
+    else
+    {
+        item.setAvailableStock(item.stock());
+    }
+
+    return item;
 }

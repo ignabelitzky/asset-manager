@@ -14,6 +14,7 @@ SOURCES += \
     src/core/DBMigrationService.cpp \
     src/core/Dashboard.cpp \
     src/core/DatabaseManager.cpp \
+    src/dao/CheckoutDAO.cpp \
     src/dao/InstitutionsDAO.cpp \
     src/dao/ItemStatesDAO.cpp \
     src/dao/ItemTypesDAO.cpp \
@@ -24,12 +25,14 @@ SOURCES += \
     src/dao/UsersDAO.cpp \
     src/dialogs/NewItemDialog.cpp \
     src/dialogs/NewUserDialog.cpp \
+    src/models/CartTableModel.cpp \
     src/models/Item.cpp \
     src/models/ItemsProxyModel.cpp \
     src/models/ItemsTableModel.cpp \
     src/models/User.cpp \
     src/models/UsersProxyModel.cpp \
     src/models/UsersTableModel.cpp \
+    src/pages/CheckoutPage.cpp \
     src/pages/ItemsPage.cpp \
     src/pages/UsersPage.cpp
 
@@ -38,6 +41,7 @@ HEADERS += \
     src/core/DBMigrationService.h \
     src/core/Dashboard.h \
     src/core/DatabaseManager.h \
+    src/dao/CheckoutDAO.h \
     src/dao/InstitutionsDAO.h \
     src/dao/ItemStatesDAO.h \
     src/dao/ItemTypesDAO.h \
@@ -48,18 +52,21 @@ HEADERS += \
     src/dao/UsersDAO.h \
     src/dialogs/NewItemDialog.h \
     src/dialogs/NewUserDialog.h \
+    src/models/CartTableModel.h \
     src/models/Item.h \
     src/models/ItemsProxyModel.h \
     src/models/ItemsTableModel.h \
     src/models/User.h \
     src/models/UsersProxyModel.h \
     src/models/UsersTableModel.h \
+    src/pages/CheckoutPage.h \
     src/pages/ItemsPage.h \
     src/pages/UsersPage.h
 
 FORMS += \
     src/dialogs/NewItemDialog.ui \
     src/dialogs/NewUserDialog.ui \
+    src/pages/CheckoutPage.ui \
     src/pages/ItemsPage.ui \
     src/pages/UsersPage.ui \
     src/ui/Dashboard.ui

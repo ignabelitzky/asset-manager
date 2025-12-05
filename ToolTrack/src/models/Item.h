@@ -14,6 +14,7 @@ public:
     void setTypeId(int id);
     void setStateId(int id);
     void setStock(int stock);
+    void setAvailableStock(int val);
     void setBrand(const QString& brand);
     void setModel(const QString& model);
     void setOwner(int ownerTypeId, int ownerId);
@@ -26,6 +27,7 @@ public:
     int typeId() const;
     int stateId() const;
     int stock() const;
+    int availableStock() const;
     QString brand() const;
     QString model() const;
     int ownerTypeId() const;
@@ -45,6 +47,7 @@ private:
     int m_stateId = 0;
 
     int m_stock = 0;
+    int m_availableStock;
     QString m_brand;
     QString m_model;
 

@@ -41,6 +41,11 @@ void Item::setStock(int stock)
     m_stock = stock;
 }
 
+void Item::setAvailableStock(int val)
+{
+    m_availableStock = val;
+}
+
 void Item::setBrand(const QString& brand)
 {
     m_brand = brand;
@@ -95,6 +100,11 @@ int Item::stateId() const
 int Item::stock() const
 {
     return m_stock;
+}
+
+int Item::availableStock() const
+{
+    return m_availableStock;
 }
 
 QString Item::brand() const
