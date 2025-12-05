@@ -4,7 +4,7 @@
 #include <QDebug>
 
 namespace {
-constexpr const char* CONNECTION_NAME = "tooltrack_db";
+constexpr const char* CONNECTION_NAME = "assetmanager_db";
 }
 
 DatabaseManager::DatabaseManager()

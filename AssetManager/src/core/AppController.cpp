@@ -21,7 +21,7 @@ AppController::AppController()
     const QString appDataDir =
         QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
 
-    m_dbPath = appDataDir + "/tooltrack.db";
+    m_dbPath = appDataDir + "/assetmanager.db";
 }
 
 AppController::~AppController()
