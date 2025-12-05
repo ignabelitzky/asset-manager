@@ -3,12 +3,12 @@
 #include "ui_UsersPage.h"
 #include "src/dialogs/NewUserDialog.h"
 
-UsersPage::UsersPage(UserDAO& userDAO, QWidget *parent)
+UsersPage::UsersPage(UsersDAO& usersDAO, QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::UsersPage)
-    , m_userDAO(userDAO)
-    , m_model(new UserTableModel(m_userDAO))
-    , m_proxy(new UserProxyModel(this))
+    , m_usersDAO(usersDAO)
+    , m_model(new UsersTableModel(m_usersDAO))
+    , m_proxy(new UsersProxyModel(this))
 {
     ui->setupUi(this);
     ui->editUserButton->setEnabled(false);
@@ -28,6 +28,7 @@ UsersPage::~UsersPage()
 void UsersPage::onSelectionChanged(const QItemSelection& selected,
                                    const QItemSelection& deselected)
 {
+    Q_UNUSED(deselected);
     const bool hasSelection = !selected.indexes().isEmpty();
     ui->editUserButton->setEnabled(hasSelection);
     ui->deleteUserButton->setEnabled(hasSelection);
@@ -35,7 +36,7 @@ void UsersPage::onSelectionChanged(const QItemSelection& selected,
 
 void UsersPage::onNewUserClicked()
 {
-    NewUserDialog dialog(m_userDAO, this);
+    NewUserDialog dialog(m_usersDAO, this);
     if (dialog.exec() == QDialog::Accepted)
     {
         m_model->refresh();
@@ -50,7 +51,7 @@ void UsersPage::onEditUserClicked()
     if (userId < 0)
         return;
 
-    NewUserDialog dialog(m_userDAO, this);
+    NewUserDialog dialog(m_usersDAO, this);
     dialog.loadUser(userId);
     if (dialog.exec() == QDialog::Accepted)
     {
@@ -68,7 +69,7 @@ void UsersPage::onDeleteUserClicked()
 
     if (QMessageBox::question(this, "Eliminar usuario", "¿Está seguro que desea eliminar este usuario?") == QMessageBox::Yes)
     {
-        m_userDAO.deleteUser(userId);
+        m_usersDAO.remove(userId);
         m_model->refresh();
         reconnectSelectionModel();
         onSelectionChanged({}, {});
@@ -107,7 +108,7 @@ void UsersPage::setupConnections()
     connect(ui->editUserButton, &QPushButton::clicked, this, &UsersPage::onEditUserClicked);
     connect(ui->deleteUserButton, &QPushButton::clicked, this, &UsersPage::onDeleteUserClicked);
     connect(ui->refreshButton, &QPushButton::clicked, this, &UsersPage::onRefreshClicked);
-    connect(ui->searchLineEdit, &QLineEdit::textChanged, m_proxy, &UserProxyModel::setFilterText);
+    connect(ui->searchLineEdit, &QLineEdit::textChanged, m_proxy, &UsersProxyModel::setFilterText);
 }
 
 void UsersPage::reconnectSelectionModel()

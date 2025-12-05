@@ -2,15 +2,15 @@
 
 #include <QAbstractTableModel>
 #include <QObject>
-#include "src/dao/UserDAO.h"
+#include "src/dao/UsersDAO.h"
 #include "src/models/User.h"
 
-class UserTableModel : public QAbstractTableModel
+class UsersTableModel : public QAbstractTableModel
 {
     Q_OBJECT
 public:
-    explicit UserTableModel(UserDAO& userDAO);
-    ~UserTableModel() = default;
+    explicit UsersTableModel(UsersDAO& usersDAO);
+    ~UsersTableModel() = default;
 
     enum {
         First_Name,
@@ -29,6 +29,6 @@ public:
     const User& getUser(int row) const;
 
 private:
-    UserDAO& m_userDAO;
+    UsersDAO& m_usersDAO;
     QVector<User> m_users;
 };

@@ -8,7 +8,7 @@
 #include <QDebug>
 
 AppController::AppController()
-    : m_userDAO(new UserDAO())
+    : m_usersDAO(new UsersDAO())
 {
     const QString appDataDir =
         QStandardPaths::writableLocation(QStandardPaths::AppDataLocation);
@@ -47,7 +47,7 @@ void AppController::shutdown()
 
 void AppController::showDashboard()
 {
-    m_dashboard = new Dashboard(*m_userDAO);
+    m_dashboard = new Dashboard(*m_usersDAO);
     m_dashboard->show();
 }
 

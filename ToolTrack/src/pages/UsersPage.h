@@ -2,9 +2,9 @@
 
 #include <QWidget>
 #include <QItemSelection>
-#include "src/dao/UserDAO.h"
-#include "src/models/UserTableModel.h"
-#include "src/models/UserProxyModel.h"
+#include "src/dao/UsersDAO.h"
+#include "src/models/UsersTableModel.h"
+#include "src/models/UsersProxyModel.h"
 
 namespace Ui {
 class UsersPage;
@@ -15,7 +15,7 @@ class UsersPage : public QWidget
     Q_OBJECT
 
 public:
-    explicit UsersPage(UserDAO& userDAO, QWidget *parent = nullptr);
+    explicit UsersPage(UsersDAO& userDAO, QWidget *parent = nullptr);
     ~UsersPage();
 
 private slots:
@@ -33,7 +33,7 @@ private:
 
 private:
     Ui::UsersPage *ui;
-    UserDAO& m_userDAO;
-    UserTableModel* m_model;
-    UserProxyModel* m_proxy;
+    UsersDAO& m_usersDAO;
+    UsersTableModel* m_model;
+    UsersProxyModel* m_proxy;
 };

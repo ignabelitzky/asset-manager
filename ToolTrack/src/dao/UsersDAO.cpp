@@ -1,9 +1,9 @@
 #include <QSqlQuery>
 #include <QSqlError>
-#include "UserDAO.h"
+#include "UsersDAO.h"
 #include "src/core/DatabaseManager.h"
 
-QVector<User> UserDAO::getAll() const
+QVector<User> UsersDAO::getAll() const
 {
     QVector<User> result = {};
 
@@ -14,7 +14,7 @@ QVector<User> UserDAO::getAll() const
     )");
     if (!query.exec())
     {
-        qDebug() << "[USERDAO] Error in getAll:" << query.lastError().text();
+        qDebug() << "[USERSDAO] Error in getAll:" << query.lastError().text();
         return result;
     }
     while (query.next())
@@ -25,7 +25,7 @@ QVector<User> UserDAO::getAll() const
     return result;
 }
 
-std::optional<User> UserDAO::getUserById(int userId) const
+std::optional<User> UsersDAO::getUserById(int userId) const
 {
     User user;
 
@@ -39,7 +39,7 @@ std::optional<User> UserDAO::getUserById(int userId) const
 
     if (!query.exec())
     {
-        qDebug() << "[USERDAO] Error in getUserById:" << query.lastError().text();
+        qDebug() << "[USERSDAO] Error in getUserById:" << query.lastError().text();
         return std::nullopt;
     }
     if (query.next())
@@ -50,7 +50,7 @@ std::optional<User> UserDAO::getUserById(int userId) const
     return user;
 }
 
-std::optional<User> UserDAO::getUserByBarcode(const QString& userBarcode) const
+std::optional<User> UsersDAO::getUserByBarcode(const QString& userBarcode) const
 {
     User user;
 
@@ -64,7 +64,7 @@ std::optional<User> UserDAO::getUserByBarcode(const QString& userBarcode) const
 
     if (!query.exec())
     {
-        qDebug() << "[USERDAO] Error in getUserByBarcode:" << query.lastError().text();
+        qDebug() << "[USERSDAO] Error in getUserByBarcode:" << query.lastError().text();
         return std::nullopt;
     }
     if (query.next())
@@ -75,7 +75,7 @@ std::optional<User> UserDAO::getUserByBarcode(const QString& userBarcode) const
     return user;
 }
 
-bool UserDAO::addUser(const User& user) const
+bool UsersDAO::insert(const User& user) const
 {
     QSqlQuery query(DatabaseManager::instance().db());
     query.prepare(R"(
@@ -86,19 +86,19 @@ bool UserDAO::addUser(const User& user) const
     query.bindValue(":last_name", user.lastName());
     query.bindValue(":barcode", user.barcode());
 
-    if(!query.exec())
+    if (!query.exec())
     {
-        qDebug() << "[USERDAO] Error in addUser:" << query.lastError().text();
+        qDebug() << "[USERSDAO] Error in insert:" << query.lastError().text();
         return false;
     }
     return true;
 }
 
-bool UserDAO::updateUser(const User& user) const
+bool UsersDAO::update(const User& user) const
 {
     if (user.id() <= 0)
     {
-        qDebug() << "[USERDAO] updateUser called with invalid id:" << user.id();
+        qDebug() << "[USERSDAO] update called with invalid id:" << user.id();
         return false;
     }
 
@@ -117,18 +117,18 @@ bool UserDAO::updateUser(const User& user) const
 
     if (!query.exec())
     {
-        qDebug() << "[USERDAO] Error in updateUser:" << query.lastError().text();
+        qDebug() << "[USERSDAO] Error in update:" << query.lastError().text();
         return false;
     }
 
     return query.numRowsAffected() > 0;
 }
 
-bool UserDAO::deleteUser(const int userId) const
+bool UsersDAO::remove(const int userId) const
 {
     if (userId < 0)
     {
-        qDebug() << "[USERDAO] deleteUser called with invalid id:" << userId;
+        qDebug() << "[USERSDAO] remove called with invalid id:" << userId;
         return false;
     }
 
@@ -141,14 +141,14 @@ bool UserDAO::deleteUser(const int userId) const
 
     if (!query.exec())
     {
-        qDebug() << "[USERDAO] Error in deleteUser:" << query.lastError().text();
+        qDebug() << "[USERSDAO] Error in remove:" << query.lastError().text();
         return false;
     }
 
     return query.numRowsAffected() > 0;
 }
 
-User UserDAO::gatherUserData(const QSqlRecord& record) const
+User UsersDAO::gatherUserData(const QSqlRecord& record) const
 {
     User user;
     user.setId(record.value("id").toInt());

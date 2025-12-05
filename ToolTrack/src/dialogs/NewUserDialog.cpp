@@ -3,10 +3,10 @@
 #include "NewUserDialog.h"
 #include "ui_NewUserDialog.h"
 
-NewUserDialog::NewUserDialog(UserDAO& userDAO, QWidget *parent)
+NewUserDialog::NewUserDialog(UsersDAO& usersDAO, QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::NewUserDialog)
-    , m_userDAO(userDAO)
+    , m_usersDAO(usersDAO)
 {
     ui->setupUi(this);
     connect(ui->saveButton, &QPushButton::clicked,
@@ -24,7 +24,7 @@ void NewUserDialog::loadUser(int userId)
 {
     m_userId = userId;
 
-    std::optional<User> user = m_userDAO.getUserById(m_userId);
+    std::optional<User> user = m_usersDAO.getUserById(m_userId);
     if (!user.has_value())
         return;
 
@@ -62,9 +62,9 @@ void NewUserDialog::onSave()
 
     bool success = false;
     if (m_userId < 0)
-        success = m_userDAO.addUser(user);
+        success = m_usersDAO.insert(user);
     else
-        success = m_userDAO.updateUser(user);
+        success = m_usersDAO.update(user);
 
     if (!success)
     {

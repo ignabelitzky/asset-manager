@@ -1,24 +1,24 @@
-#include "UserTableModel.h"
+#include "UsersTableModel.h"
 
-UserTableModel::UserTableModel(UserDAO& userDAO)
-    : m_userDAO(userDAO)
+UsersTableModel::UsersTableModel(UsersDAO& usersDAO)
+    : m_usersDAO(usersDAO)
 {
     refresh();
 }
 
-int UserTableModel::rowCount(const QModelIndex& parent) const
+int UsersTableModel::rowCount(const QModelIndex& parent) const
 {
     Q_UNUSED(parent);
     return m_users.size();
 }
 
-int UserTableModel::columnCount(const QModelIndex& parent) const
+int UsersTableModel::columnCount(const QModelIndex& parent) const
 {
     Q_UNUSED(parent);
     return COLUMN_COUNT;
 }
 
-QVariant UserTableModel::data(const QModelIndex& index, int role) const
+QVariant UsersTableModel::data(const QModelIndex& index, int role) const
 {
     if (role == Qt::TextAlignmentRole)
         return Qt::AlignCenter;
@@ -47,7 +47,7 @@ QVariant UserTableModel::data(const QModelIndex& index, int role) const
     return {};
 }
 
-QVariant UserTableModel::headerData(int section, Qt::Orientation orientation, int role) const
+QVariant UsersTableModel::headerData(int section, Qt::Orientation orientation, int role) const
 {
     if (role != Qt::DisplayRole)
         return {};
@@ -69,14 +69,14 @@ QVariant UserTableModel::headerData(int section, Qt::Orientation orientation, in
     return section + 1;
 }
 
-void UserTableModel::refresh()
+void UsersTableModel::refresh()
 {
     beginResetModel();
-    m_users = m_userDAO.getAll();
+    m_users = m_usersDAO.getAll();
     endResetModel();
 }
 
-const User& UserTableModel::getUser(int row) const
+const User& UsersTableModel::getUser(int row) const
 {
     if (row < 0 || row >= m_users.size())
     {

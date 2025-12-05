@@ -2,14 +2,14 @@
 #include "ui_Dashboard.h"
 #include "src/pages/UsersPage.h"
 
-Dashboard::Dashboard(UserDAO& userDAO, QWidget *parent)
+Dashboard::Dashboard(UsersDAO& usersDAO, QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::Dashboard)
-    , m_userDAO(userDAO)
+    , m_usersDAO(usersDAO)
 {
     ui->setupUi(this);
 
-    QWidget* usersPage = new UsersPage(m_userDAO, this);
+    QWidget* usersPage = new UsersPage(m_usersDAO, this);
 
     registerPage("users", usersPage, "Usuarios");
     switchToPage("users");

@@ -14,11 +14,18 @@ SOURCES += \
     src/core/DBMigrationService.cpp \
     src/core/Dashboard.cpp \
     src/core/DatabaseManager.cpp \
-    src/dao/UserDAO.cpp \
+    src/dao/ItemStatesDAO.cpp \
+    src/dao/ItemTypesDAO.cpp \
+    src/dao/ItemsDAO.cpp \
+    src/dao/LocationsDAO.cpp \
+    src/dao/OwnerTypesDAO.cpp \
+    src/dao/PersonsDAO.cpp \
+    src/dao/UsersDAO.cpp \
     src/dialogs/NewUserDialog.cpp \
+    src/models/Item.cpp \
     src/models/User.cpp \
-    src/models/UserProxyModel.cpp \
-    src/models/UserTableModel.cpp \
+    src/models/UsersProxyModel.cpp \
+    src/models/UsersTableModel.cpp \
     src/pages/UsersPage.cpp
 
 HEADERS += \
@@ -26,11 +33,18 @@ HEADERS += \
     src/core/DBMigrationService.h \
     src/core/Dashboard.h \
     src/core/DatabaseManager.h \
-    src/dao/UserDAO.h \
+    src/dao/ItemStatesDAO.h \
+    src/dao/ItemTypesDAO.h \
+    src/dao/ItemsDAO.h \
+    src/dao/LocationsDAO.h \
+    src/dao/OwnerTypesDAO.h \
+    src/dao/PersonsDAO.h \
+    src/dao/UsersDAO.h \
     src/dialogs/NewUserDialog.h \
+    src/models/Item.h \
     src/models/User.h \
-    src/models/UserProxyModel.h \
-    src/models/UserTableModel.h \
+    src/models/UsersProxyModel.h \
+    src/models/UsersTableModel.h \
     src/pages/UsersPage.h
 
 FORMS += \

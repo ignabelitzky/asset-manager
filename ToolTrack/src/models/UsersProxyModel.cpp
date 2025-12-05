@@ -1,18 +1,18 @@
-#include "UserProxyModel.h"
+#include "UsersProxyModel.h"
 
-UserProxyModel::UserProxyModel(QObject* parent)
+UsersProxyModel::UsersProxyModel(QObject* parent)
     : QSortFilterProxyModel(parent)
 {
     setFilterCaseSensitivity(Qt::CaseInsensitive);
 }
 
-void UserProxyModel:: setFilterText(const QString& text)
+void UsersProxyModel:: setFilterText(const QString& text)
 {
     m_filterText = text;
     invalidateFilter();
 }
 
-bool UserProxyModel::filterAcceptsRow(int sourceRow,
+bool UsersProxyModel::filterAcceptsRow(int sourceRow,
                                       const QModelIndex& sourceParent) const
 {
     if (m_filterText.isEmpty())

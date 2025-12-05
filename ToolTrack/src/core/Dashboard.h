@@ -1,7 +1,7 @@
 #pragma once
 
 #include <QMainWindow>
-#include "src/dao/UserDAO.h"
+#include "src/dao/UsersDAO.h"
 
 struct PageInfo
 {
@@ -20,7 +20,7 @@ class Dashboard : public QMainWindow
     Q_OBJECT
 
 public:
-    Dashboard(UserDAO& userDAO, QWidget *parent = nullptr);
+    Dashboard(UsersDAO& usersDAO, QWidget *parent = nullptr);
     ~Dashboard();
 
 private:
@@ -30,6 +30,6 @@ private:
 
 private:
     Ui::Dashboard *ui;
-    UserDAO& m_userDAO;
+    UsersDAO& m_usersDAO;
     QMap<QString, PageInfo> m_pages;
 };

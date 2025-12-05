@@ -2,7 +2,7 @@
 
 #include <QString>
 #include "src/core/Dashboard.h"
-#include "src/dao/UserDAO.h"
+#include "src/dao/UsersDAO.h"
 
 class AppController
 {
@@ -18,7 +18,7 @@ public:
 
 private:
     QString m_dbPath;
-    UserDAO* m_userDAO;
+    UsersDAO* m_usersDAO;
 
     Dashboard* m_dashboard{nullptr};
 

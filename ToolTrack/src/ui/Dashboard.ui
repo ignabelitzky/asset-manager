@@ -29,14 +29,14 @@
       <item>
        <widget class="QPushButton" name="checkoutButton">
         <property name="text">
-         <string>Retirar</string>
+         <string>Retirar Item</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QPushButton" name="returnButton">
         <property name="text">
-         <string>Devolver</string>
+         <string>Devolver Item</string>
         </property>
        </widget>
       </item>
@@ -87,7 +87,7 @@
       <item>
        <widget class="QPushButton" name="toolsButton">
         <property name="text">
-         <string>Herramientas</string>
+         <string>Items</string>
         </property>
        </widget>
       </item>

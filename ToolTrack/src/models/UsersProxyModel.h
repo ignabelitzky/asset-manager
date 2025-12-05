@@ -3,11 +3,11 @@
 #include <QObject>
 #include <QSortFilterProxyModel>
 
-class UserProxyModel : public QSortFilterProxyModel
+class UsersProxyModel : public QSortFilterProxyModel
 {
     Q_OBJECT
 public:
-    explicit UserProxyModel(QObject* parent = nullptr);
+    explicit UsersProxyModel(QObject* parent = nullptr);
 
     void setFilterText(const QString& text);
 
