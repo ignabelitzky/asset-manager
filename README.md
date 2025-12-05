@@ -1,26 +1,26 @@
-# ToolTrack
+# AssetManager
 
-ToolTrack es un sistema ligero para administrar herramientas, utiliza códigos de barra para hacer el seguimiento de salida y retorno de los elementos de trabajo en escuelas, talleres e instituciones. Cada persona y herramienta tiene un único identificador, que permite un rápido y confiable registro de quién retiró que y cuando.
+AssetManager es un sistema ligero para administrar items en general, los cuáles pueden ser herramientas, maquinaria, muebles, aparatos, insumos, entre otros, utiliza códigos de barra para hacer el seguimiento de salida y retorno de los elementos de trabajo de escuelas, talleres, instituciones, etc. Cada persona e item tiene un único identificador, que permite un rápido y confiable registro de quién retiró que y cuando.
 
 ## Características
-- Basado en código de barras para la identificación de usuarios y herramientas
-- Rápida registro de la salida y retorno de las herramientas
+- Basado en código de barras para la identificación de usuarios e items
+- Rápida registro de la salida y retorno de los items
 - Marcado de día y hora automático
 - Base de datos local SQLite
 - Interfaz C++/Qt
-- Perfecto para mini-PCs basadas en Linux (e.g. Raspberry Pi)
+- Perfecto para mini-PCs basadas en Linux o Windows (e.g. Raspberry Pi)
 
 ## ¿Cómo funciona?
-1. Un usuario escanea su código de barras identificatorio.
-2. El sistema entra en modo de retiro.
-3. Cada herramienta que el usuario toma es escaneada y registrada indicando día y hora.
-4. Cuando se devuelven la o las herramientas, el usuario vuelve a escanear para completar el log de devolución.
+1. Al usuario se le presenta un panel del sistema.
+2. El panel presenta distintos botones de navegación (Usuarios, Items, Retiro, Devolución, Log, etc.).
+3. Cada item que el usuario decide retirar es escaneada y registrada indicando día y hora.
+4. Cuando el usuario decide entregar un item retirado, se vuelve a escanear para completar el log de devolución.
 
 ## Tecnologías utilizadas
 - **Lenguaje:** C++
 - **Framework:** Qt
 - **Base de Datos:** SQLite
-- **Plataforma:** Linux
+- **Plataforma:** Linux, Windows
 
 ## Metas del Proyecto
 - Proveer un sistema de trackeo simple, estable y offline
