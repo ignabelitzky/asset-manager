@@ -25,7 +25,10 @@ SOURCES += \
     src/dao/UsersDAO.cpp \
     src/dialogs/NewInstitutionDialog.cpp \
     src/dialogs/NewItemDialog.cpp \
+    src/dialogs/NewLocationDialog.cpp \
     src/dialogs/NewPersonDialog.cpp \
+    src/dialogs/NewStateDialog.cpp \
+    src/dialogs/NewTypeDialog.cpp \
     src/dialogs/NewUserDialog.cpp \
     src/models/CartTableModel.cpp \
     src/models/InstitutionsProxyModel.cpp \
@@ -33,13 +36,20 @@ SOURCES += \
     src/models/Item.cpp \
     src/models/ItemsProxyModel.cpp \
     src/models/ItemsTableModel.cpp \
+    src/models/LocationsProxyModel.cpp \
+    src/models/LocationsTableModel.cpp \
     src/models/PersonsProxyModel.cpp \
     src/models/PersonsTableModel.cpp \
+    src/models/StatesProxyModel.cpp \
+    src/models/StatesTableModel.cpp \
+    src/models/TypesProxyModel.cpp \
+    src/models/TypesTableModel.cpp \
     src/models/User.cpp \
     src/models/UsersProxyModel.cpp \
     src/models/UsersTableModel.cpp \
     src/pages/CheckoutPage.cpp \
     src/pages/ItemsPage.cpp \
+    src/pages/MetadataPage.cpp \
     src/pages/OwnersPage.cpp \
     src/pages/UsersPage.cpp
 
@@ -59,7 +69,10 @@ HEADERS += \
     src/dao/UsersDAO.h \
     src/dialogs/NewInstitutionDialog.h \
     src/dialogs/NewItemDialog.h \
+    src/dialogs/NewLocationDialog.h \
     src/dialogs/NewPersonDialog.h \
+    src/dialogs/NewStateDialog.h \
+    src/dialogs/NewTypeDialog.h \
     src/dialogs/NewUserDialog.h \
     src/models/CartTableModel.h \
     src/models/InstitutionsProxyModel.h \
@@ -67,23 +80,34 @@ HEADERS += \
     src/models/Item.h \
     src/models/ItemsProxyModel.h \
     src/models/ItemsTableModel.h \
+    src/models/LocationsProxyModel.h \
+    src/models/LocationsTableModel.h \
     src/models/PersonsProxyModel.h \
     src/models/PersonsTableModel.h \
+    src/models/StatesProxyModel.h \
+    src/models/StatesTableModel.h \
+    src/models/TypesProxyModel.h \
+    src/models/TypesTableModel.h \
     src/models/User.h \
     src/models/UsersProxyModel.h \
     src/models/UsersTableModel.h \
     src/pages/CheckoutPage.h \
     src/pages/ItemsPage.h \
+    src/pages/MetadataPage.h \
     src/pages/OwnersPage.h \
     src/pages/UsersPage.h
 
 FORMS += \
     src/dialogs/NewInstitutionDialog.ui \
     src/dialogs/NewItemDialog.ui \
+    src/dialogs/NewLocationDialog.ui \
     src/dialogs/NewPersonDialog.ui \
+    src/dialogs/NewStateDialog.ui \
+    src/dialogs/NewTypeDialog.ui \
     src/dialogs/NewUserDialog.ui \
     src/pages/CheckoutPage.ui \
     src/pages/ItemsPage.ui \
+    src/pages/MetadataPage.ui \
     src/pages/OwnersPage.ui \
     src/pages/UsersPage.ui \
     src/ui/Dashboard.ui

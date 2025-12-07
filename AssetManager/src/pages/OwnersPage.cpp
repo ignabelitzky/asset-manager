@@ -199,7 +199,7 @@ void OwnersPage::setupConnections()
     connect(ui->editPersonButton, &QPushButton::clicked, this, &OwnersPage::onEditPersonClicked);
     connect(ui->deletePersonButton, &QPushButton::clicked, this, &OwnersPage::onDeletePersonClicked);
     connect(ui->personsRefreshButton, &QPushButton::clicked, this, &OwnersPage::onRefreshPersonsClicked);
-    connect(ui->pearsonSearchLineEdit, &QLineEdit::textChanged, m_personsProxy, &PersonsProxyModel::setFilterText);
+    connect(ui->personSearchLineEdit, &QLineEdit::textChanged, m_personsProxy, &PersonsProxyModel::setFilterText);
 
     connect(ui->newInstitutionButton, &QPushButton::clicked, this, &OwnersPage::onNewInstitutionClicked);
     connect(ui->editInstitutionButton, &QPushButton::clicked, this, &OwnersPage::onEditInstitutionClicked);

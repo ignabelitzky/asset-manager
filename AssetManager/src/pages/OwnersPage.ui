@@ -75,7 +75,7 @@
           </spacer>
          </item>
          <item>
-          <widget class="QLineEdit" name="pearsonSearchLineEdit">
+          <widget class="QLineEdit" name="personSearchLineEdit">
            <property name="minimumSize">
             <size>
              <width>200</width>

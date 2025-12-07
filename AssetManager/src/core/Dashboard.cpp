@@ -4,6 +4,7 @@
 #include "src/pages/ItemsPage.h"
 #include "src/pages/CheckoutPage.h"
 #include "src/pages/OwnersPage.h"
+#include "src/pages/MetadataPage.h"
 
 Dashboard::Dashboard(UsersDAO& usersDAO,
                      ItemsDAO& itemsDAO,
@@ -46,10 +47,15 @@ Dashboard::Dashboard(UsersDAO& usersDAO,
     QWidget* ownersPage = new OwnersPage(m_personsDAO,
                                          m_institutionsDAO,
                                          this);
+    QWidget* metadataPage = new MetadataPage(m_itemTypesDAO,
+                                             m_itemStatesDAO,
+                                             m_locationsDAO,
+                                             this);
 
     registerPage("users", usersPage, "Usuarios");
     registerPage("items", itemsPage, "Items");
     registerPage("checkout", checkoutPage, "Retiro");
+    registerPage("metadata", metadataPage, "Metadata");
     registerPage("owners", ownersPage, "Responsables");
 
     switchToPage("items");
@@ -99,4 +105,5 @@ void Dashboard::setupConnections()
     connectPageButton(ui->itemsButton, "items");
     connectPageButton(ui->checkoutButton, "checkout");
     connectPageButton(ui->ownersButton, "owners");
+    connectPageButton(ui->metadataButton, "metadata");
 }
