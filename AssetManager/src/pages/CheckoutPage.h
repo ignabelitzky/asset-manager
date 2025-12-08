@@ -9,6 +9,12 @@
 #include "src/dao/UsersDAO.h"
 #include "src/models/CartTableModel.h"
 
+struct CheckoutEntry {
+    int itemId;
+    QString name;
+    int quantity{1};
+};
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class CheckoutPage; }
 QT_END_NAMESPACE
@@ -29,6 +35,7 @@ private slots:
     void onUserBarcodeEntered();
     void onAddItemEntered();
     void onConfirmCheckout();
+    void onCancelClicked();
 
 private:
     void resetUI();
@@ -42,12 +49,5 @@ private:
     CheckoutDAO& m_checkoutDAO;
     UsersDAO& m_usersDAO;
     int m_currentUserId = -1;
-
-    struct CheckoutEntry {
-        int itemId;
-        QString name;
-        int quantity{1};
-    };
-
     QVector<CheckoutEntry> m_checkoutItems;
 };

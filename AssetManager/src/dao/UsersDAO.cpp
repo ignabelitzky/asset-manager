@@ -72,6 +72,10 @@ std::optional<User> UsersDAO::getUserByBarcode(const QString& userBarcode) const
         QSqlRecord record = query.record();
         user = gatherUserData(record);
     }
+    else
+    {
+        return std::nullopt;
+    }
     return user;
 }
 

@@ -22,6 +22,7 @@ NewItemDialog::NewItemDialog(ItemsDAO& itemsDAO,
     , m_locationsDAO(locationsDAO)
 {
     ui->setupUi(this);
+    setWindowTitle("Nuevo Item");
 
     loadCombos();
 

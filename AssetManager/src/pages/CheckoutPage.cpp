@@ -23,14 +23,20 @@ CheckoutPage::CheckoutPage(ItemsDAO& itemsDAO,
 
     resetUI();
 
+    connect(ui->searchUserButton, &QPushButton::clicked,
+            this, &CheckoutPage::onUserBarcodeEntered);
     connect(ui->userBarcodeLineEdit, &QLineEdit::returnPressed,
             this, &CheckoutPage::onUserBarcodeEntered);
 
+    connect(ui->searchItemButton, &QPushButton::clicked,
+            this, &CheckoutPage::onAddItemEntered);
     connect(ui->itemBarcodeLineEdit, &QLineEdit::returnPressed,
             this, &CheckoutPage::onAddItemEntered);
 
     connect(ui->confirmButton, &QPushButton::clicked,
             this, &CheckoutPage::onConfirmCheckout);
+    connect(ui->cancelButton, &QPushButton::clicked,
+            this, &CheckoutPage::onCancelClicked);
 }
 
 CheckoutPage::~CheckoutPage()
@@ -46,16 +52,18 @@ void CheckoutPage::resetUI()
 
     ui->userBarcodeLineEdit->clear();
     ui->itemBarcodeLineEdit->clear();
-    ui->userNameLabel->setText("-");
+    ui->userNameLabel->setText("");
 
     ui->itemBarcodeLineEdit->setEnabled(false);
     ui->confirmButton->setEnabled(false);
+    ui->itemHintLabel->setHidden(true);
 }
 
 void CheckoutPage::activateItemEntry()
 {
     ui->itemBarcodeLineEdit->setEnabled(true);
     ui->itemBarcodeLineEdit->setFocus();
+    ui->itemHintLabel->setHidden(false);
 }
 
 void CheckoutPage::refreshCartModel()
@@ -96,7 +104,7 @@ void CheckoutPage::onUserBarcodeEntered()
 
     m_currentUserId = user->id();
 
-    QString fullName = QString("%1 %2").arg(user->firstName(), user->lastName());
+    QString fullName = QString("Usuario encontrado: %1 %2").arg(user->firstName(), user->lastName());
     ui->userNameLabel->setText(fullName);
 
     activateItemEntry();
@@ -157,4 +165,12 @@ void CheckoutPage::onConfirmCheckout()
 
     QMessageBox::information(this, "Éxito", "Checkout completado.");
     resetUI();
+}
+
+void CheckoutPage::onCancelClicked()
+{
+    if (QMessageBox::question(this, "Cancelar retiro", "¿Está seguro que desea cancelar el retiro?") == QMessageBox::Yes)
+    {
+        resetUI();
+    }
 }
