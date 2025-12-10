@@ -3,6 +3,7 @@
 #include "src/pages/UsersPage.h"
 #include "src/pages/ItemsPage.h"
 #include "src/pages/CheckoutPage.h"
+#include "src/pages/ReturnPage.h"
 #include "src/pages/OwnersPage.h"
 #include "src/pages/MetadataPage.h"
 
@@ -44,6 +45,10 @@ Dashboard::Dashboard(UsersDAO& usersDAO,
                                              m_checkoutDAO,
                                              m_usersDAO,
                                              this);
+    QWidget* returnPage = new ReturnPage(m_itemsDAO,
+                                         m_checkoutDAO,
+                                         m_usersDAO,
+                                         this);
     QWidget* ownersPage = new OwnersPage(m_personsDAO,
                                          m_institutionsDAO,
                                          this);
@@ -55,6 +60,7 @@ Dashboard::Dashboard(UsersDAO& usersDAO,
     registerPage("users", usersPage, "Usuarios");
     registerPage("items", itemsPage, "Items");
     registerPage("checkout", checkoutPage, "Retiro");
+    registerPage("return", returnPage, "Devolución");
     registerPage("metadata", metadataPage, "Metadata");
     registerPage("owners", ownersPage, "Responsables");
 

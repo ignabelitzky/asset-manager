@@ -31,7 +31,7 @@
      <item row="0" column="0">
       <widget class="QLabel" name="userBarcodeLabel">
        <property name="text">
-        <string>Ingresar código de usuario</string>
+        <string>Código del Usuario</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -54,6 +54,9 @@
        </property>
        <property name="alignment">
         <set>Qt::AlignmentFlag::AlignCenter</set>
+       </property>
+       <property name="placeholderText">
+        <string>Código númerico del Usuario</string>
        </property>
        <property name="clearButtonEnabled">
         <bool>true</bool>
@@ -109,22 +112,6 @@
      <property name="bottomMargin">
       <number>10</number>
      </property>
-     <item row="1" column="0" colspan="2">
-      <widget class="QLabel" name="itemHintLabel">
-       <property name="font">
-        <font>
-         <italic>false</italic>
-         <bold>true</bold>
-        </font>
-       </property>
-       <property name="text">
-        <string>Escanee el código del item para agregar al retiro</string>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignmentFlag::AlignCenter</set>
-       </property>
-      </widget>
-     </item>
      <item row="0" column="1">
       <widget class="QLineEdit" name="itemBarcodeLineEdit">
        <property name="minimumSize">
@@ -137,7 +124,7 @@
         <set>Qt::AlignmentFlag::AlignCenter</set>
        </property>
        <property name="placeholderText">
-        <string/>
+        <string>Código númerico del Item</string>
        </property>
        <property name="clearButtonEnabled">
         <bool>false</bool>
@@ -158,6 +145,22 @@
       <widget class="QPushButton" name="searchItemButton">
        <property name="text">
         <string>Buscar Item</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0" colspan="3">
+      <widget class="QLabel" name="itemHintLabel">
+       <property name="font">
+        <font>
+         <italic>false</italic>
+         <bold>true</bold>
+        </font>
+       </property>
+       <property name="text">
+        <string>Escanee el código del item para agregar al retiro</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignmentFlag::AlignCenter</set>
        </property>
       </widget>
      </item>

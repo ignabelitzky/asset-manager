@@ -51,6 +51,7 @@ SOURCES += \
     src/pages/ItemsPage.cpp \
     src/pages/MetadataPage.cpp \
     src/pages/OwnersPage.cpp \
+    src/pages/ReturnPage.cpp \
     src/pages/UsersPage.cpp
 
 HEADERS += \
@@ -95,6 +96,7 @@ HEADERS += \
     src/pages/ItemsPage.h \
     src/pages/MetadataPage.h \
     src/pages/OwnersPage.h \
+    src/pages/ReturnPage.h \
     src/pages/UsersPage.h
 
 FORMS += \
@@ -109,6 +111,7 @@ FORMS += \
     src/pages/ItemsPage.ui \
     src/pages/MetadataPage.ui \
     src/pages/OwnersPage.ui \
+    src/pages/ReturnPage.ui \
     src/pages/UsersPage.ui \
     src/ui/Dashboard.ui
 

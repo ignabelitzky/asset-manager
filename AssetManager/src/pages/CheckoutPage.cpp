@@ -23,20 +23,7 @@ CheckoutPage::CheckoutPage(ItemsDAO& itemsDAO,
 
     resetUI();
 
-    connect(ui->searchUserButton, &QPushButton::clicked,
-            this, &CheckoutPage::onUserBarcodeEntered);
-    connect(ui->userBarcodeLineEdit, &QLineEdit::returnPressed,
-            this, &CheckoutPage::onUserBarcodeEntered);
-
-    connect(ui->searchItemButton, &QPushButton::clicked,
-            this, &CheckoutPage::onAddItemEntered);
-    connect(ui->itemBarcodeLineEdit, &QLineEdit::returnPressed,
-            this, &CheckoutPage::onAddItemEntered);
-
-    connect(ui->confirmButton, &QPushButton::clicked,
-            this, &CheckoutPage::onConfirmCheckout);
-    connect(ui->cancelButton, &QPushButton::clicked,
-            this, &CheckoutPage::onCancelClicked);
+    setupConnections();
 }
 
 CheckoutPage::~CheckoutPage()
@@ -57,6 +44,24 @@ void CheckoutPage::resetUI()
     ui->itemBarcodeLineEdit->setEnabled(false);
     ui->confirmButton->setEnabled(false);
     ui->itemHintLabel->setHidden(true);
+}
+
+void CheckoutPage::setupConnections()
+{
+    connect(ui->searchUserButton, &QPushButton::clicked,
+            this, &CheckoutPage::onUserBarcodeEntered);
+    connect(ui->userBarcodeLineEdit, &QLineEdit::returnPressed,
+            this, &CheckoutPage::onUserBarcodeEntered);
+
+    connect(ui->searchItemButton, &QPushButton::clicked,
+            this, &CheckoutPage::onAddItemEntered);
+    connect(ui->itemBarcodeLineEdit, &QLineEdit::returnPressed,
+            this, &CheckoutPage::onAddItemEntered);
+
+    connect(ui->confirmButton, &QPushButton::clicked,
+            this, &CheckoutPage::onConfirmCheckout);
+    connect(ui->cancelButton, &QPushButton::clicked,
+            this, &CheckoutPage::onCancelClicked);
 }
 
 void CheckoutPage::activateItemEntry()

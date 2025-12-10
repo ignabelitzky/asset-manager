@@ -24,7 +24,7 @@ class CheckoutPage : public QWidget
     Q_OBJECT
 
 public:
-    CheckoutPage(ItemsDAO& itemsDAO,
+    explicit CheckoutPage(ItemsDAO& itemsDAO,
                  CheckoutDAO& checkoutDAO,
                  UsersDAO& usersDAO,
                  QWidget* parent = nullptr);
@@ -39,6 +39,7 @@ private slots:
 
 private:
     void resetUI();
+    void setupConnections();
     void activateItemEntry();
     void refreshCartModel();
 
