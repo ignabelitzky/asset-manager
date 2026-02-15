@@ -83,6 +83,7 @@ HEADERS += \
     src/models/ItemsTableModel.h \
     src/models/LocationsProxyModel.h \
     src/models/LocationsTableModel.h \
+    src/models/OwnerTypeIds.h \
     src/models/PersonsProxyModel.h \
     src/models/PersonsTableModel.h \
     src/models/StatesProxyModel.h \

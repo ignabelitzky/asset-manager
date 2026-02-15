@@ -1,4 +1,5 @@
 #include "ItemsTableModel.h"
+#include "OwnerTypeIds.h"
 
 ItemsTableModel::ItemsTableModel(ItemsDAO& itemsDAO,
                                  ItemTypesDAO& itemTypesDAO,
@@ -158,14 +159,13 @@ QString ItemsTableModel::resolveOwnerName(int ownerTypeId, int ownerId) const
     if (ownerId <= 0)
         return "-";
 
-    // ownerTypeId: 1 = Persona, 2 = Institución
-    if (ownerTypeId == 1)   // Persona
+    if (ownerTypeId == OwnerTypeIds::Person)
     {
         if (!m_personCache.contains(ownerId))
             m_personCache[ownerId] = m_personsDAO.getFullNameById(ownerId);
         return m_personCache[ownerId];
     }
-    else if (ownerTypeId == 2) // Institución
+    else if (ownerTypeId == OwnerTypeIds::Institution)
     {
         if (!m_institutionCache.contains(ownerId))
             m_institutionCache[ownerId] = m_institutionsDAO.getNameById(ownerId);
