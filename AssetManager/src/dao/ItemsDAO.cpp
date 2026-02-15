@@ -9,9 +9,25 @@ QVector<Item> ItemsDAO::getAll() const
 
     QSqlQuery query(DatabaseManager::instance().db());
     query.prepare(R"(
-        SELECT id, name, barcode, type_id, state_id, stock,
-            brand, model, owner_type_id, owner_id, location_id, notes
-        FROM items
+        SELECT i.id,
+               i.name,
+               i.barcode,
+               i.type_id,
+               i.state_id,
+               i.stock,
+               i.brand,
+               i.model,
+               i.owner_type_id,
+               i.owner_id,
+               i.location_id,
+               i.notes,
+               COUNT(c.id) AS checked_out
+        FROM items i
+        LEFT JOIN items_checkout c
+          ON c.item_id = i.id
+         AND c.returned_at IS NULL
+        GROUP BY i.id, i.name, i.barcode, i.type_id, i.state_id, i.stock,
+                 i.brand, i.model, i.owner_type_id, i.owner_id, i.location_id, i.notes
     )");
 
     if (!query.exec())
@@ -40,10 +56,26 @@ std::optional<Item> ItemsDAO::getById(int id) const
 
     QSqlQuery query(DatabaseManager::instance().db());
     query.prepare(R"(
-        SELECT id, name, barcode, type_id, state_id, stock,
-            brand, model, owner_type_id, owner_id, location_id, notes
-        FROM items
-        WHERE id = :id
+        SELECT i.id,
+               i.name,
+               i.barcode,
+               i.type_id,
+               i.state_id,
+               i.stock,
+               i.brand,
+               i.model,
+               i.owner_type_id,
+               i.owner_id,
+               i.location_id,
+               i.notes,
+               (
+                   SELECT COUNT(*)
+                   FROM items_checkout c
+                   WHERE c.item_id = i.id
+                     AND c.returned_at IS NULL
+               ) AS checked_out
+        FROM items i
+        WHERE i.id = :id
     )");
     query.bindValue(":id", id);
 
@@ -67,10 +99,26 @@ std::optional<Item> ItemsDAO::getByBarcode(const QString& barcode) const
 
     QSqlQuery query(DatabaseManager::instance().db());
     query.prepare(R"(
-        SELECT id, name, barcode, type_id, state_id, stock,
-            brand, model, owner_type_id, owner_id, location_id, notes
-        FROM items
-        WHERE barcode = :barcode
+        SELECT i.id,
+               i.name,
+               i.barcode,
+               i.type_id,
+               i.state_id,
+               i.stock,
+               i.brand,
+               i.model,
+               i.owner_type_id,
+               i.owner_id,
+               i.location_id,
+               i.notes,
+               (
+                   SELECT COUNT(*)
+                   FROM items_checkout c
+                   WHERE c.item_id = i.id
+                     AND c.returned_at IS NULL
+               ) AS checked_out
+        FROM items i
+        WHERE i.barcode = :barcode
     )");
     query.bindValue(":barcode", barcode);
 
@@ -228,17 +276,10 @@ Item ItemsDAO::gatherItem(const QSqlRecord& record) const
     item.setLocationId(record.value("location_id").toInt());
     item.setNotes(record.value("notes").toString());
 
-    // Calculate availableStock
-    QSqlQuery query(DatabaseManager::instance().db());
-    query.prepare(R"(
-        SELECT COUNT(*) FROM items_checkout
-        WHERE item_id = :item_id AND returned_at IS NULL
-    )");
-    query.bindValue(":item_id", item.id());
-
-    if (query.exec() && query.next())
+    const int checkedOutIndex = record.indexOf("checked_out");
+    if (checkedOutIndex >= 0)
     {
-        int checkedOut = query.value(0).toInt();
+        const int checkedOut = record.value(checkedOutIndex).toInt();
         item.setAvailableStock(item.stock() - checkedOut);
     }
     else

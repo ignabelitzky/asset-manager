@@ -2,6 +2,7 @@
 #include "ui_NewItemDialog.h"
 
 #include <QMessageBox>
+#include "src/models/OwnerTypeIds.h"
 
 NewItemDialog::NewItemDialog(ItemsDAO& itemsDAO,
                              ItemTypesDAO& itemTypesDAO,
@@ -104,12 +105,12 @@ void NewItemDialog::loadOwnersForType(int ownerTypeId)
 {
     ui->ownerComboBox->clear();
 
-    if (ownerTypeId == 1)  // Persona
+    if (ownerTypeId == OwnerTypeIds::Person)
     {
         for (auto p : m_personsDAO.getAll())
             ui->ownerComboBox->addItem(QString("%1 %2").arg(p.firstName, p.lastName).trimmed(), p.id);
     }
-    else if (ownerTypeId == 2) // Institución
+    else if (ownerTypeId == OwnerTypeIds::Institution)
     {
         for (auto inst : m_institutionsDAO.getAll())
             ui->ownerComboBox->addItem(inst.name, inst.id);
